@@ -114,9 +114,9 @@ pwrstate(int argc, char *argv[])
 		/* get current power state from features so we can output
                    what the current level is in the list */
 
-        	printf("Supported Power States\n");
-        	printf("===========================\n");
-        	for(i=0; i<cdata.npss+1; ++i) { /* cdata.npss is "0 based" so we add 1 to it */
+	 	printf("Supported Power States\n");
+		printf("===========================\n");
+		for(i=0; i<cdata.npss+1; ++i) { /* cdata.npss is "0 based" so we add 1 to it */
 			printf("Power State %u = %u W", i+1, cdata.psd[i].max_power/100);
 			if(cdata.psd[i].flags & NVME_PS_FLAGS_NON_OP_STATE) {
 				printf(" [no I/O]");
@@ -126,7 +126,7 @@ pwrstate(int argc, char *argv[])
 			} else {
 				printf("\n");
 			}
-        	}
+		}
 	}
 
 	close(fd);
