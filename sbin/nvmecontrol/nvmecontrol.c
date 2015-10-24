@@ -58,6 +58,7 @@ static struct nvme_function {
 	{"reset",	reset,		RESET_USAGE},
 	{"logpage",	logpage,	LOGPAGE_USAGE},
 	{"firmware",	firmware,	FIRMWARE_USAGE},
+	{"pwrstate",	pwrstate,	PWRSTATE_USAGE},
 	{NULL,		NULL,		NULL},
 };
 
@@ -159,6 +160,43 @@ read_namespace_data(int fd, int nsid, struct nvme_namespace_data *nsdata)
 
 	if (nvme_completion_is_error(&pt.cpl))
 		errx(1, "identify request returned error");
+}
+
+int
+read_power_state(int fd)
+{
+        struct nvme_pt_command  pt;
+
+        memset(&pt, 0, sizeof(pt));
+        pt.cmd.opc = NVME_OPC_GET_FEATURES;
+        pt.cmd.cdw10 = NVME_FEAT_POWER_MANAGEMENT;
+        pt.is_read = 0;
+
+        if (ioctl(fd, NVME_PASSTHROUGH_CMD, &pt) < 0)
+                err(1, "Get power state request failed");
+
+        if (nvme_completion_is_error(&pt.cpl))
+                errx(1, "Get power state returned error");
+
+        return (int)(pt.cpl.cdw0&0x07);
+}
+
+void
+write_power_state(int fd, int state)
+{
+        struct nvme_pt_command  pt;
+
+        memset(&pt, 0, sizeof(pt));
+        pt.cmd.opc = NVME_OPC_SET_FEATURES;
+        pt.cmd.cdw10 = NVME_FEAT_POWER_MANAGEMENT;
+	pt.cmd.cdw11 = state & 0x07;
+        pt.is_read = 0;
+
+        if (ioctl(fd, NVME_PASSTHROUGH_CMD, &pt) < 0)
+                err(1, "Set power state request failed");
+
+        if (nvme_completion_is_error(&pt.cpl))
+                errx(1, "Set power state request returned error");
 }
 
 int

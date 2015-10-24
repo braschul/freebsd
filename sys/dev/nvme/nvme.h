@@ -392,6 +392,29 @@ enum nvme_activate_action {
 	NVME_AA_ACTIVATE			= 0x2,
 };
 
+struct nvme_power_state {
+	uint16_t		max_power;	/* centiwatts */
+	uint8_t			rsvd2;
+	uint8_t			flags;
+	uint32_t		entry_lat;	/* microseconds */
+	uint32_t		exit_lat;	/* microseconds */
+	uint8_t			read_tput;
+	uint8_t			read_lat;
+	uint8_t			write_tput;
+	uint8_t			write_lat;
+	uint16_t		idle_power;
+	uint8_t			idle_scale;
+	uint8_t			rsvd19;
+	uint16_t		active_power;
+	uint8_t			active_work_scale;
+	uint8_t			rsvd23[9];
+} __packed;
+
+enum nvme_ps_flags {
+	NVME_PS_FLAGS_MAX_POWER_SCALE	= 1 << 0,
+	NVME_PS_FLAGS_NON_OP_STATE	= 1 << 1,
+};
+
 #define NVME_SERIAL_NUMBER_LENGTH	20
 #define NVME_MODEL_NUMBER_LENGTH	40
 #define NVME_FIRMWARE_REVISION_LENGTH	8
@@ -532,7 +555,8 @@ struct nvme_controller_data {
 	uint8_t			reserved5[1344];
 
 	/* bytes 2048-3071: power state descriptors */
-	uint8_t			reserved6[1024];
+	/*uint8_t			reserved6[1024];*/
+	struct nvme_power_state	psd[32];
 
 	/* bytes 3072-4095: vendor specific */
 	uint8_t			vs[1024];

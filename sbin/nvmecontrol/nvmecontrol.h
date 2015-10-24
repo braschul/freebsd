@@ -55,17 +55,23 @@
 #define FIRMWARE_USAGE							       \
 "       nvmecontrol firmware [-s slot] [-f path_to_firmware] [-a] <controller id>\n"
 
+#define PWRSTATE_USAGE							       \
+"       nvmecontrol pwrstate [-s <1-32>] <controller id>\n"
+
 void devlist(int argc, char *argv[]);
 void identify(int argc, char *argv[]);
 void perftest(int argc, char *argv[]);
 void reset(int argc, char *argv[]);
 void logpage(int argc, char *argv[]);
 void firmware(int argc, char *argv[]);
+void pwrstate(int argc, char *argv[]);
 
 int open_dev(const char *str, int *fd, int show_error, int exit_on_error);
 void parse_ns_str(const char *ns_str, char *ctrlr_str, int *nsid);
 void read_controller_data(int fd, struct nvme_controller_data *cdata);
 void read_namespace_data(int fd, int nsid, struct nvme_namespace_data *nsdata);
+int read_power_state(int fd);
+void write_power_state(int fd, int state);
 void print_hex(void *data, uint32_t length);
 void read_logpage(int fd, uint8_t log_page, int nsid, void *payload,
     uint32_t payload_size);
