@@ -106,8 +106,14 @@ pwrstate(int argc, char *argv[])
 	read_controller_data(fd, &cdata);
 
         if(s_flag) {
-		/* set the power state with SET FEATURES command */
-		write_power_state(fd, state-1);
+		/* check that we are trying to set a valid state for the device */
+		if(state <= cdata.npss+1) {
+			/* set the power state with SET FEATURES command */
+			write_power_state(fd, state-1);
+		} else {
+			fprintf(stderr, "Power state %d is not supported for device %s\n", state, controller);
+			pwrstate_usage();
+		}
 	} else {
 		int curlvl = read_power_state(fd);
 
