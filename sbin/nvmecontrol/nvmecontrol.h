@@ -58,6 +58,9 @@
 #define PWRSTATE_USAGE							       \
 "       nvmecontrol pwrstate [-s <1-32>] <controller id>\n"
 
+#define RESIZE_USAGE							       \
+"       nvmecontrol resize -s <size in GB> <controller id>\n"
+
 void devlist(int argc, char *argv[]);
 void identify(int argc, char *argv[]);
 void perftest(int argc, char *argv[]);
@@ -65,6 +68,7 @@ void reset(int argc, char *argv[]);
 void logpage(int argc, char *argv[]);
 void firmware(int argc, char *argv[]);
 void pwrstate(int argc, char *argv[]);
+void resize(int argc, char *argv[]);
 
 int open_dev(const char *str, int *fd, int show_error, int exit_on_error);
 void parse_ns_str(const char *ns_str, char *ctrlr_str, int *nsid);
@@ -75,6 +79,7 @@ void write_power_state(int fd, int state);
 void print_hex(void *data, uint32_t length);
 void read_logpage(int fd, uint8_t log_page, int nsid, void *payload,
     uint32_t payload_size);
+void send_resize(int fd, uint32_t size);
 
 #endif
 

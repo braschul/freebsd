@@ -59,6 +59,7 @@ static struct nvme_function {
 	{"logpage",	logpage,	LOGPAGE_USAGE},
 	{"firmware",	firmware,	FIRMWARE_USAGE},
 	{"pwrstate",	pwrstate,	PWRSTATE_USAGE},
+	{"resize",	resize,		RESIZE_USAGE},
 	{NULL,		NULL,		NULL},
 };
 

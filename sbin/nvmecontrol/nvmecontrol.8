@@ -74,6 +74,10 @@
 .Ic pwrstate
 .Op Fl s Ar state
 .Aq device id
+.Nm
+.Ic resize
+.Op Fl s Ar size_in_gb
+.Aq device id
 .Sh DESCRIPTION
 NVM Express (NVMe) is a storage protocol standard, for SSDs and other
 high-speed storage devices over PCI Express.
@@ -132,6 +136,10 @@ List the supported power states for the specified controller.
 .Dl nvmecontrol pwrstate -s 2 nvme0
 .Pp
 Set the specified controller to power state '2'.
+.Pp
+.Dl nvmecontrol resize -s 1600 nvme0
+.Pp
+Resize the specified device to 1600 GB.
 .Sh AUTHORS
 .An -nosplit
 .Nm
