@@ -2,6 +2,9 @@
  * Copyright (C) 2012-2014 Intel Corporation
  * All rights reserved.
  *
+ * Copyright (C) 2015 HGST, Inc.
+ * All rights reserved.
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -59,6 +62,8 @@ MALLOC_DECLARE(M_NVME);
 
 #define IDT32_PCI_ID		0x80d0111d /* 32 channel board */
 #define IDT8_PCI_ID		0x80d2111d /* 8 channel board */
+
+#define HGST_SN100_ID		0x00031c58
 
 /*
  * For commands requiring more than 2 PRP entries, one PRP will be

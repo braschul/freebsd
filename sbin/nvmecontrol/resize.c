@@ -91,6 +91,7 @@ send_resize(int fd, uint32_t size)
 	/* resize command requires controller reset */
 	if (ioctl(fd, NVME_RESET_CONTROLLER) < 0)
 		err(1, "controller reset request failed");
+	printf("Resize operation complete.  Please reboot.\n");
 }
 
 static void

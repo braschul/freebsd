@@ -88,6 +88,7 @@ static struct _pcsid
 	{ CHATHAM_PCI_ID,	"Chatham Prototype NVMe Controller"  },
 	{ IDT32_PCI_ID,		"IDT NVMe Controller (32 channel)"  },
 	{ IDT8_PCI_ID,		"IDT NVMe Controller (8 channel)" },
+	{ HGST_SN100_ID,	"HGST UltraStar SN100 Series" },
 	{ 0x00000000,		NULL  }
 };
 
